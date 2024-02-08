@@ -42,7 +42,7 @@ public class Entry
         Duration = duration;
         Intensity = intensity;
         Exclude = exclude;
-        Notes = notes ?? "";
+        Notes = notes;
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class Entry
     /// <summary>
     /// The level of intensity for the entry.
     /// </summary>
-    public IntensityLevel Intensity { get; set; }
+    public IntensityLevel Intensity { get; set; } = IntensityLevel.Medium;
 
     /// <summary>
     /// Whether or not this entry should be excluded when calculating the total fitness activity.
@@ -85,7 +85,7 @@ public class Entry
     /// The notes for the entry.
     /// </summary>
     [MaxLength(200, ErrorMessage = "The Notes field cannot be longer than 200 characters.")]
-    public string Notes { get; set; } = null!;
+    public string? Notes { get; set; }
 
     /// <summary>
     /// The level of intensity for the entry as a string.

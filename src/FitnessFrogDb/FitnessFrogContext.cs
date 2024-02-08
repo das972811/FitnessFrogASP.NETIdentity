@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using FitnessFrogDb.Models;
+using FitnessFrogDb.ModelBuilderExtensions;
 
 namespace FitnessFrogDb;
 
@@ -26,5 +27,7 @@ public class FitnessFrogContext : DbContext
         modelBuilder.Entity<Entry>()
                     .Property(e => e.Duration)
                     .HasPrecision(5, 1);
+
+        modelBuilder.Seed();
     }
 }
