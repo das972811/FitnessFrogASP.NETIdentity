@@ -1,5 +1,7 @@
 To Add Migrations
     dotnet ef migrations add InitialCreate --project ../FitnessFrogDb
+    dotnet ef database update --project ../FitnessFrogDb
+
 
     dotnet ef migrations add InitialCreate --output-dir /path/to/MigrationsLibrary
 
