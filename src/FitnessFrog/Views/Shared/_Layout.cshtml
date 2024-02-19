@@ -1,4 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewData["element-id"] = "logo";
+
+    string applicationName = "Fitness Frog";
+    
+
+    Func<string> GetAddEntryButtonVisibility = () =>
+    {
+        string currentController = ViewContext.RouteData.Values["controller"] as string ?? string.Empty;
+        string currentAction = ViewContext.RouteData.Values["action"] as string ?? string.Empty;
+
+        if (currentController.Equals("Entries") && currentAction.Equals("Add"))
+        {
+            return "hidden";
+        }
+
+        return "visible";
+    };
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,44 +26,51 @@
     <title>@ViewData["Title"] - FitnessFrog</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/FitnessFrog.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/FitnessFrog.styles.css" asp-append-version="true" /> *@
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FitnessFrog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container layout-fix">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                <a class="navbar-brand" asp-area="" asp-controller="Entries" asp-action="Index">
+                    <partial name="../Shared/_Logo" view-data="ViewData" />
+                    @applicationName
+                </a>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - FitnessFrog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+                <a class="btn btn-primary navbar-btn navbar-right"
+                        style="visibility: @GetAddEntryButtonVisibility()"
+                        asp-area="" asp-controller="Entries" asp-action="Add">
+                        <span class="glyphicon glyphicon-plus"></span> <span>Add Entry</span>
+                </a>
+            </div>
         </div>
+    </header>
+    <div class="container body-content">
+        @* <main role="main" class="pb-3">
+        </main> *@
+        @RenderBody()
+    </div>
+    <footer>
+        @{ ViewData["element-id"] = "footer_logo"; }
+        <partial name="../Shared/_Logo" view-data="ViewData" />
+        <p>&copy; @DateTime.Now.Year @applicationName, All Rights Reserved.</p>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $('input.datepicker').datepicker({
+            format: 'm/d/yyyy'
+        });
+    </script>
 </body>
 </html>
