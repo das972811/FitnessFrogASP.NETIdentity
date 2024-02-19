@@ -11,7 +11,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(m => m.Entry.Date, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.Entry.Date, "{0:d}", new { @class = "form-control datepicker" })
+                @Html.TextBoxFor(m => m.Entry.Date, "{0:d}", new { @class = "form-control datepicker", data_language = "en" })
             </div>
 
             <div class="form-group">
