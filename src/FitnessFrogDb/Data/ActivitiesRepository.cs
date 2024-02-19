@@ -22,6 +22,8 @@ public class ActivitiesRepository : BaseRepository<Activity>
     /// <returns>A list of activities.</returns>
     public override IList<Activity> GetList()
     {
-        throw new NotImplementedException();
+        return Context.Activities
+            .OrderBy(a => a.Name)
+            .ToList();
     }
 }

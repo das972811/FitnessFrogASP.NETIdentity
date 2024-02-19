@@ -24,7 +24,7 @@ public class EntriesRepository : BaseRepository<Entry>
         
         if (includeRelatedEntities)
         {
-            entries
+            entries = entries
                 .Include(e => e.Activity);
         }
 
@@ -38,6 +38,10 @@ public class EntriesRepository : BaseRepository<Entry>
     /// <returns>A list of entries.</returns>
     public override IList<Entry> GetList()
     {
-        throw new NotImplementedException();
+        return Context.Entries
+            .Include(e => e.Activity)
+            .OrderByDescending(e => e.Date)
+            .ThenByDescending(e => e.Id)
+            .ToList();
     }
 }

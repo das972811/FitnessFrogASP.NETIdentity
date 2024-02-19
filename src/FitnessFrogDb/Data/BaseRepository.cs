@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessFrogDb.Data;
 
-public abstract class BaseRepository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity> : IEntityService<TEntity> where TEntity : class
 {
     protected FitnessFrogContext Context { get; private set; }
 
