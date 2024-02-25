@@ -2,11 +2,18 @@ using Microsoft.EntityFrameworkCore;
 
 using FitnessFrogDb.Models;
 using FitnessFrogDb.ModelBuilderExtensions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FitnessFrogDb;
 
-public class FitnessFrogContext : DbContext
+public class FitnessFrogContext : IdentityDbContext<User>
 {
+
+    public FitnessFrogContext() : base()
+    {
+
+    }
+
     public FitnessFrogContext(DbContextOptions<FitnessFrogContext> options) : base(options)
     {
 
@@ -17,6 +24,8 @@ public class FitnessFrogContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Activity>().ToTable("Activity");
         modelBuilder.Entity<Entry>().ToTable("Entry");
 
